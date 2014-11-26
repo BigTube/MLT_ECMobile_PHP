@@ -54,6 +54,8 @@ abstract class GZ_Api
 
     public static function init()
     {
+        $json = file_get_contents('php://input');
+
         if (!empty($_POST['json'])) {
 			if (get_magic_quotes_gpc()) {
 				$_POST['json'] = stripslashes($_POST['json']);
@@ -101,6 +103,7 @@ abstract class GZ_Api
 		if (!empty($pager)) {
 			$data = array_merge($data, array('paginated'=>$pager));
 		}
+        header('Content-Type: application/json');
         die(json_encode($data));
     }
 }
