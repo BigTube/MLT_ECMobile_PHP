@@ -210,8 +210,9 @@ function gz_get_goods_gallery($goods_id)
     /* 格式化相册图片路径 */
     foreach($row as $key => $gallery_img)
     {
-        $row[$key]['img_url'] = get_image_path($goods_id, $gallery_img['img_original'], false, 'gallery');
-        $row[$key]['thumb_url'] = get_image_path($goods_id, $gallery_img['img_url'], true, 'gallery');
+        $row[$key]['img_original'] = get_image_path($goods_id, $gallery_img['img_original'], false, 'gallery');
+        $row[$key]['img_url'] = get_image_path($goods_id, $gallery_img['img_url'], false, 'gallery');
+        $row[$key]['thumb_url'] = get_image_path($goods_id, $gallery_img['thumb_url'], true, 'gallery');
     }
     return $row;
 }

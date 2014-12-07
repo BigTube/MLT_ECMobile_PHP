@@ -370,9 +370,9 @@ $_REQUEST['keywords']   = !empty($_REQUEST['keywords'])   ? htmlspecialchars(tri
       $arr[$row['goods_id']]['goods_name'] = $row['goods_name'];
 
       $arr[$row['goods_id']]['type']          = $row['goods_type'];
-      $arr[$row['goods_id']]['market_price']  = price_format($row['market_price']);
-      $arr[$row['goods_id']]['shop_price']    = price_format($row['shop_price']);
-      $arr[$row['goods_id']]['promote_price'] = ($promote_price > 0) ? price_format($promote_price) : '';
+      $arr[$row['goods_id']]['market_price']  = $row['market_price'];
+      $arr[$row['goods_id']]['shop_price']    = $row['shop_price'];
+      $arr[$row['goods_id']]['promote_price'] = ($promote_price > 0) ? $promote_price : '';
 
       $arr[$row['goods_id']]['goods_brief']   = $row['goods_brief'];
       $arr[$row['goods_id']]['original_img']   = get_image_path($row['goods_id'], $row['original_img'], true);

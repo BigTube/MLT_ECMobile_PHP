@@ -271,14 +271,14 @@ function API_DATA($type, $readData)
 		case 'SIMPLEGOODS':
 			$outData = array(
 			  "goods_id" => $readData['goods_id'],
-			  "name" => $readData['goods_name'],
+			  "goods_name" => $readData['goods_name'],
 			  "market_price" => $readData['market_price'],
 			  "shop_price" => $readData['shop_price'],
 			  "promote_price" => $readData['promote_price'],
 			  "img" => array(
-				'thumb'=>API_DATA('PHOTO', $readData['goods_img']),
-				'url' => API_DATA('PHOTO', $readData['original_img']),
-                'small' => API_DATA('PHOTO', $readData['goods_thumb'])
+					'goods'=>API_DATA('PHOTO', $readData['goods_img']),
+					'original' => API_DATA('PHOTO', $readData['original_img']),
+          'thumb' => API_DATA('PHOTO', $readData['goods_thumb'])
 				)
 			);
 			break;
@@ -354,8 +354,8 @@ function API_DATA($type, $readData)
 				"promote_end_date"  => bjTime($readData['promote_end_date']),
 				"is_shipping" => $readData['is_shipping'],
 				"img" => array(
-					'thumb'=>API_DATA('PHOTO', $readData['goods_img']),
-					'url' => API_DATA('PHOTO', $readData['original_img']),
+					'goods'=>API_DATA('PHOTO', $readData['goods_img']),
+					'original' => API_DATA('PHOTO', $readData['original_img']),
 					'small'=>API_DATA('PHOTO', $readData['goods_thumb'])
 				 ),
 				"rank_prices" => array(),
@@ -373,9 +373,9 @@ function API_DATA($type, $readData)
 
 			foreach ($readData['pictures'] as $key => $value) {
 				$outData['pictures'][] = array(
-					"small"=>API_DATA('PHOTO', $value['thumb_url']),
 					"thumb"=>API_DATA('PHOTO', $value['thumb_url']),
-					"url"=>API_DATA('PHOTO', $value['img_url'])
+					"goods"=>API_DATA('PHOTO', $value['img_url']),
+					"original"=>API_DATA('PHOTO', $value['img_original'])
 				);
 			}
 
