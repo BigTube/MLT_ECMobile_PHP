@@ -71,7 +71,7 @@ if ( !empty($category) ) {
 
         ;
 
-        $brand=[];
+        $brand = array();
 
         $ret = $GLOBALS['db']->getAll($sql);
 
