@@ -87,7 +87,7 @@ $good_tmp['type'] = 'goods';
 
 $area_tmp['title'] = "";
 $area_tmp['template'] = 'L1R2';
-$area_tmp['items'][0] = $good_tmp;
+$area_tmp['items'][0] = create_good_item();
 $area_tmp['items'][1] = create_good_item();
 $area_tmp['items'][2] = create_good_item();
 $flash_arr['area'][] = $area_tmp;
