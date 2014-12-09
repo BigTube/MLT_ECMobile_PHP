@@ -167,8 +167,8 @@ function gz_get_category_recommend_goods($type = '', $cats = '', $brand = 0, $mi
         $goods[$idx]['market_price'] = price_format($row['market_price']);
         $goods[$idx]['shop_price']   = price_format($row['shop_price']);
         $goods[$idx]['thumb']        = get_image_path($row['goods_id'], $row['goods_thumb'], true);
-        $goods[$idx]['goods_img']    = get_image_path($row['goods_id'], $row['goods_img']);
-        $goods[$idx]['original_img']    = get_image_path($row['goods_id'], $row['original_img']);
+        $goods[$idx]['img']    = get_image_path($row['goods_id'], $row['goods_img']);
+        $goods[$idx]['original']    = get_image_path($row['goods_id'], $row['original_img']);
         $goods[$idx]['url']          = build_uri('goods', array('gid' => $row['goods_id']), $row['goods_name']);
 
         $goods[$idx]['short_style_name'] = add_style($goods[$idx]['short_name'], $row['goods_name_style']);

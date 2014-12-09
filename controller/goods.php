@@ -211,7 +211,7 @@ function gz_get_goods_gallery($goods_id)
     foreach($row as $key => $gallery_img)
     {
         $row[$key]['original'] = get_image_path($goods_id, $gallery_img['img_original'], false, 'gallery');
-        $row[$key]['goods'] = get_image_path($goods_id, $gallery_img['img_url'], false, 'gallery');
+        $row[$key]['img'] = get_image_path($goods_id, $gallery_img['img_url'], false, 'gallery');
         $row[$key]['thumb'] = get_image_path($goods_id, $gallery_img['thumb_url'], true, 'gallery');
     }
     return $row;

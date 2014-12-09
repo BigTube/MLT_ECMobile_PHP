@@ -52,7 +52,7 @@ function get_flash_xml_2()
             foreach ($t as $key => $val) {
                 $val[4] = isset($val[4]) ? $val[4] : 0;
                 $val[2] = substr($val[2], 0, 4) == 'http' ? $val[2] : dirname($GLOBALS['ecs']->url()) . '/' . $val[2];
-                $flashdb[] = array('photo' => array('small' => API_DATA('PHOTO', $val[1]), 'thumb' => API_DATA('PHOTO', $val[1]), 'url' => API_DATA('PHOTO', $val[1])), 'url' => $val[2], 'description' => $val[3]);
+                $flashdb[] = array('photo' => array('thumb' => API_DATA('PHOTO', $val[1]), 'img' => API_DATA('PHOTO', $val[1]), 'original' => API_DATA('PHOTO', $val[1])), 'url' => $val[2], 'description' => $val[3]);
             }
         }
     }
@@ -201,7 +201,7 @@ if (!empty($sales4)) {
             'brief' => $val['brief'],
             'img' => array(
                 'thumb' => API_DATA('PHOTO', $val['goods_thumb']),
-                'goods' => API_DATA('PHOTO', $val['goods_img']),
+                'img' => API_DATA('PHOTO', $val['goods_img']),
                 'original' => API_DATA('PHOTO', $val['original_img'])
             )
         );
