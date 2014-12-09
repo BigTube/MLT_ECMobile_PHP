@@ -66,7 +66,7 @@ $brand_tmp['name'] = "变形金刚";
 $brand_tmp['id'] = "6";
 $brand_tmp['desc'] = "《变形金刚》是从1984年起至今美国孩之宝公司与日本TAKARA公司合作开发的系列玩具和推出的系列动画片/影片的总称。";
 
-$brand_tmp['logo'] = "1413512333052645922.jpg";
+$brand_tmp['logo'] = "/data/brandlogo/1413512333052645922.jpg";
 $brand_tmp['site_url'] = "http://www.manluotuo.com/brand.php?id=6";
 
 
