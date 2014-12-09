@@ -90,14 +90,14 @@ $area_tmp['template'] = 'L1R2';
 $area_tmp['items'][0] = $good_tmp;
 $area_tmp['items'][1] = create_good_item();
 $area_tmp['items'][2] = create_good_item();
-$flash_arr['area'][0] = $area_tmp;
+$flash_arr['area'][] = $area_tmp;
 
 //左一右一
 $area_tmp_2['title'] = "";
 $area_tmp_2['template'] = 'L1R1';
 $area_tmp_2['items'][0] = $good_tmp;
 $area_tmp_2['items'][1] = create_good_item();
-$flash_arr['area'][2] = $area_tmp_2;
+$flash_arr['area'][] = $area_tmp_2;
 
 
 
@@ -108,7 +108,7 @@ $area_tmp_3['template'] = 'L2R1';
 $area_tmp_3['items'][0] = $good_tmp;
 $area_tmp_3['items'][1] = create_good_item();
 $area_tmp_3['items'][2] = create_good_item();
-$flash_arr['area'][3] = $area_tmp_3;
+$flash_arr['area'][] = $area_tmp_3;
 
 
 
