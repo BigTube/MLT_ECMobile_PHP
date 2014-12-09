@@ -117,6 +117,7 @@ function create_good_item($title='',$img='',$tmplate=''){
     $good_tmp['img'] = "http://real-time.oss-cn-beijing.aliyuncs.com/images/201411/1415251853120079696.jpg";
     $good_tmp['id'] = 30;
     $good_tmp['type'] = 'goods';
+    $good_tmp['price'] = '150';
 
     return $good_tmp;
 }
