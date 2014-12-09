@@ -200,9 +200,9 @@ if (!empty($sales4)) {
             'promote_price' => $val['promote_price'],
             'brief' => $val['brief'],
             'img' => array(
-                'small' => API_DATA('PHOTO', $val['goods_thumb']),
-                'thumb' => API_DATA('PHOTO', $val['goods_img']),
-                'url' => API_DATA('PHOTO', $val['original_img'])
+                'thumb' => API_DATA('PHOTO', $val['goods_thumb']),
+                'goods' => API_DATA('PHOTO', $val['goods_img']),
+                'original' => API_DATA('PHOTO', $val['original_img'])
             )
         );
     }
