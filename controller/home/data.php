@@ -95,7 +95,7 @@ $flash_arr['area'][] = $area_tmp;
 //左一右一
 $area_tmp_2['title'] = "";
 $area_tmp_2['template'] = 'L1R1';
-$area_tmp_2['items'][0] = $good_tmp;
+$area_tmp_2['items'][0] = create_good_item();
 $area_tmp_2['items'][1] = create_good_item();
 $flash_arr['area'][] = $area_tmp_2;
 
@@ -105,7 +105,7 @@ $flash_arr['area'][] = $area_tmp_2;
 
 $area_tmp_3['title'] = "";
 $area_tmp_3['template'] = 'L2R1';
-$area_tmp_3['items'][0] = $good_tmp;
+$area_tmp_3['items'][0] =  create_good_item();
 $area_tmp_3['items'][1] = create_good_item();
 $area_tmp_3['items'][2] = create_good_item();
 $flash_arr['area'][] = $area_tmp_3;
@@ -115,7 +115,7 @@ $flash_arr['area'][] = $area_tmp_3;
 function create_good_item($title='',$img='',$tmplate=''){
 
     $good_tmp['img'] = "http://real-time.oss-cn-beijing.aliyuncs.com/images/201411/1415251853120079696.jpg";
-    $good_tmp['id'] = 30;
+    $good_tmp['id'] = 200;
     $good_tmp['type'] = 'goods';
     $good_tmp['name'] = '变形金刚';
     $good_tmp['price'] = '150';
