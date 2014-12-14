@@ -272,6 +272,7 @@ function API_DATA($type, $readData)
 			$outData = array(
 			  "goods_id" => $readData['goods_id'],
 			  "goods_name" => $readData['goods_name'],
+			  "goods_bried" => $readData['goods_bried'],
 			  "market_price" => $readData['market_price'],
 			  "shop_price" => $readData['shop_price'],
 			  "promote_price" => $readData['promote_price'],
