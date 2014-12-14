@@ -317,7 +317,7 @@ $_REQUEST['keywords']   = !empty($_REQUEST['keywords'])   ? htmlspecialchars(tri
   }
 
   /* 查询商品 */
-  $sql = "SELECT g.goods_id, g.goods_name, g.market_price, g.is_new, g.is_best, g.is_hot, g.shop_price AS org_price, ".
+  $sql = "SELECT g.goods_id, g.goods_name, g.market_price, g.goods_brief, g.is_new, g.is_best, g.is_hot, g.shop_price AS org_price, ".
               "IFNULL(mp.user_price, g.shop_price * '$_SESSION[discount]') AS shop_price, ".
               "g.promote_price, g.promote_start_date, g.promote_end_date, g.goods_thumb, g.goods_img, g.original_img, g.goods_brief, g.goods_type ".
           "FROM " .$ecs->table('goods'). " AS g ".
