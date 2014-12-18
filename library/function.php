@@ -340,6 +340,7 @@ function API_DATA($type, $readData)
 				"goods_sn" => $readData['goods_sn'],
 				"goods_name" => $readData['goods_name'],
 				"goods_desc"=>$readData['goods_desc'],
+			  "goods_brief" => $readData['goods_brief'],
         "collected" => $readData['collected'],
 				"market_price" => $readData['market_price'],
 				"shop_price" => price_format($readData['shop_price'], false),
