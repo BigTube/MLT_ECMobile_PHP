@@ -335,7 +335,7 @@ function API_DATA($type, $readData)
 		case 'GOODS':
             $readData['original_img'] || $readData['original_img'] = $readData['goods_thumb'];
 			$outData = array(
-				"id"  =>  $readData['goods_id'],
+				"goods_id"  =>  $readData['goods_id'],
 				"cat_id" => $readData['cat_id'],
 				"goods_sn" => $readData['goods_sn'],
 				"goods_name" => $readData['goods_name'],
