@@ -339,8 +339,8 @@ function API_DATA($type, $readData)
 				"cat_id" => $readData['cat_id'],
 				"goods_sn" => $readData['goods_sn'],
 				"goods_name" => $readData['goods_name'],
-				// "goods_desc"=>$readData['goods_desc'],
-                "collected" => $readData['collected'],
+				"goods_desc"=>$readData['goods_desc'],
+        "collected" => $readData['collected'],
 				"market_price" => $readData['market_price'],
 				"shop_price" => price_format($readData['shop_price'], false),
 				"integral" => $readData['integral'],
@@ -357,7 +357,7 @@ function API_DATA($type, $readData)
 				"img" => array(
 					'goods'=>API_DATA('PHOTO', $readData['goods_img']),
 					'original' => API_DATA('PHOTO', $readData['original_img']),
-					'small'=>API_DATA('PHOTO', $readData['goods_thumb'])
+					'thumb'=>API_DATA('PHOTO', $readData['goods_thumb'])
 				 ),
 				"rank_prices" => array(),
 				"pictures" => array(),
@@ -380,16 +380,16 @@ function API_DATA($type, $readData)
 				);
 			}
 
-            if (!empty($readData['properties'])) {
-                // $readData['properties'] = current($readData['properties']);
-    			foreach ($readData['properties'] as $key => $value) {
-                    // 处理分组
-                    foreach ($value as $k => $v) {
-                        $v['value'] = strip_tags($v['value']);
-        				$outData['properties'][] = $v;
-                    }
-    			}
-            }
+      if (!empty($readData['properties'])) {
+        // $readData['properties'] = current($readData['properties']);
+				foreach ($readData['properties'] as $key => $value) {
+          // 处理分组
+          foreach ($value as $k => $v) {
+            $v['value'] = strip_tags($v['value']);
+    				$outData['properties'][] = $v;
+        	}
+				}
+      }
 
 			foreach ($readData['specification'] as $key => $value) {
 				if (!empty($value['values'])) {
