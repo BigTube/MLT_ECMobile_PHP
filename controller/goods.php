@@ -182,6 +182,8 @@ $data['pictures'] = $smarty->_var['pictures'];
 $data['properties'] = $smarty->_var['properties'];
 $data['specification'] = $smarty->_var['specification'];
 $data['collected'] = 0;
+$data['goods_desc'] =  '<!DOCTYPE html><html><head><title>'.$data['goods_name'].'</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="viewport" content="initial-scale = 1.0 , minimum-scale = 1.0 , maximum-scale = 1.0" /><style>img {width: auto\9;height: auto;vertical-align: middle;border: 0;-ms-interpolation-mode: bicubic;max-width: 100%; }html { font-size:100%; } </style>'.$base.'</head><body>'.$data['goods_desc'].'</body></html>';
+
 
 if (!empty($tmp[0]) && $tmp[0] == 'desc') {
     $base = sprintf('<base href="%s/" />', dirname($GLOBALS['ecs']->url()));

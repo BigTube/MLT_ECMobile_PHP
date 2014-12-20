@@ -114,11 +114,11 @@ $flash_arr['area'][] = $area_tmp_3;
 
 function create_good_item($title='',$img='',$tmplate=''){
 
-    $good_tmp['img'] = "http://real-time.oss-cn-beijing.aliyuncs.com/images/201411/1415251853120079696.jpg";
+    $good_tmp['img'] = "http://real-time.oss-cn-beijing.aliyuncs.com/images/201411/source_img/255_P_1414984871775.jpg";
     $good_tmp['id'] = 200;
     $good_tmp['type'] = 'goods';
-    $good_tmp['name'] = '变形金刚';
-    $good_tmp['price'] = '150';
+    $good_tmp['name'] = '海贼王-弗兰奇将军';
+    $good_tmp['price'] = '167';
 
     return $good_tmp;
 }

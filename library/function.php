@@ -272,6 +272,7 @@ function API_DATA($type, $readData)
 			$outData = array(
 			  "goods_id" => $readData['goods_id'],
 			  "goods_name" => $readData['goods_name'],
+			  "goods_brief" => $readData['goods_brief'],
 			  "market_price" => $readData['market_price'],
 			  "shop_price" => $readData['shop_price'],
 			  "promote_price" => $readData['promote_price'],
@@ -334,14 +335,15 @@ function API_DATA($type, $readData)
 		case 'GOODS':
             $readData['original_img'] || $readData['original_img'] = $readData['goods_thumb'];
 			$outData = array(
-				"id"  =>  $readData['goods_id'],
+				"goods_id"  =>  $readData['goods_id'],
 				"cat_id" => $readData['cat_id'],
 				"goods_sn" => $readData['goods_sn'],
 				"goods_name" => $readData['goods_name'],
-				// "goods_desc"=>$readData['goods_desc'],
-                "collected" => $readData['collected'],
+				"goods_desc"=>$readData['goods_desc'],
+			  "goods_brief" => $readData['goods_brief'],
+        "collected" => $readData['collected'],
 				"market_price" => $readData['market_price'],
-				"shop_price" => price_format($readData['shop_price'], false),
+				"shop_price" => $readData['shop_price'],
 				"integral" => $readData['integral'],
 				"click_count" => $readData['click_count'],
 				"brand_id" => $readData['brand_id'],
@@ -349,14 +351,13 @@ function API_DATA($type, $readData)
 				"goods_number" => is_numeric($readData['goods_number']) ? $readData['goods_number'] : 65535,
 				"goods_weight" =>  $readData['goods_weight'],
 				"promote_price" => $readData['promote_price_org'],
-				"formated_promote_price" => price_format($readData['promote_price_org'], false),//$readData['promote_price'],
 				"promote_start_date" => bjTime($readData['promote_start_date']),
 				"promote_end_date"  => bjTime($readData['promote_end_date']),
 				"is_shipping" => $readData['is_shipping'],
 				"img" => array(
 					'goods'=>API_DATA('PHOTO', $readData['goods_img']),
 					'original' => API_DATA('PHOTO', $readData['original_img']),
-					'small'=>API_DATA('PHOTO', $readData['goods_thumb'])
+					'thumb'=>API_DATA('PHOTO', $readData['goods_thumb'])
 				 ),
 				"rank_prices" => array(),
 				"pictures" => array(),
@@ -379,16 +380,16 @@ function API_DATA($type, $readData)
 				);
 			}
 
-            if (!empty($readData['properties'])) {
-                // $readData['properties'] = current($readData['properties']);
-    			foreach ($readData['properties'] as $key => $value) {
-                    // 处理分组
-                    foreach ($value as $k => $v) {
-                        $v['value'] = strip_tags($v['value']);
-        				$outData['properties'][] = $v;
-                    }
-    			}
-            }
+      if (!empty($readData['properties'])) {
+        // $readData['properties'] = current($readData['properties']);
+				foreach ($readData['properties'] as $key => $value) {
+          // 处理分组
+          foreach ($value as $k => $v) {
+            $v['value'] = strip_tags($v['value']);
+    				$outData['properties'][] = $v;
+        	}
+				}
+      }
 
 			foreach ($readData['specification'] as $key => $value) {
 				if (!empty($value['values'])) {
