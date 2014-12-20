@@ -62,7 +62,7 @@ $goods_id = isset($_REQUEST['id'])  ? intval($_REQUEST['id']) : 0;
     /* 获得商品的信息 */
     $goods = get_goods_info($goods_id);
 
-    $goods[brand] = get_good_brand($goods['brand_id']);
+    $goods['brand_name'] = get_good_brand($goods['brand_id']);
 
     // print_r($goods);exit;
 
@@ -177,6 +177,8 @@ $smarty->assign('now_time',  gmtime());           // 当前系统时间
 // print_r($smarty->_var);exit;
 
 $data = $smarty->_var['goods'];
+
+$data['aiaiaia'] = "aiaiia";
 $data['rank_prices'] = $smarty->_var['rank_prices'];
 $data['pictures'] = $smarty->_var['pictures'];
 $data['properties'] = $smarty->_var['properties'];
@@ -200,7 +202,8 @@ if (!empty($tmp[0]) && $tmp[0] == 'desc') {
            $data['collected'] = 1;
         }
     }
-
+     //$data = [];
+   // $data['name_name'] = "name";
     // print_r($data);exit;
 	GZ_Api::outPut(API_DATA('GOODS', $data));
 }
@@ -429,13 +432,13 @@ function get_good_brand($brand__id)
 
     /* 取商品属性 */
     $sql = "SELECT *
-                FROM " .$GLOBALS['ecs']->table('goods_attr').  "
+                FROM " .$GLOBALS['ecs']->table('brand').  "
                 WHERE brand_id = ".$brand__id;
 
-    $ret = $GLOBALS['db']->getone($sql);
+    $ret = $GLOBALS['db']->getall($sql);
 
 
-    return $ret['brand_name'];
+    return $ret[0]['brand_name'];
 
 
 
