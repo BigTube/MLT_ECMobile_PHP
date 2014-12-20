@@ -63,8 +63,7 @@ $goods_id = isset($_REQUEST['id'])  ? intval($_REQUEST['id']) : 0;
     $goods = get_goods_info_ecmobile($goods_id);
 
 
-print_r($goods);
-  exit;
+
     $goods['brand_name'] = get_good_brand($goods['brand_id']);
 
     // print_r($goods);exit;
