@@ -51,7 +51,7 @@ function formatData($data)
 	<div class="parms_div">
 		<span>接口地址：</span>
 		<select id="serverUrl" autocomplete="off">
-			<option value="/ecmobile/?url=" selected>当前域名</option>
+			<option value="/MLT_ECMobile_PHP/?url=" selected>当前域名</option>
 				<?php foreach ($data['server'] as $key => $value): ?>
 					<option value="<?php echo $value ?>" ><?php echo $key ?></option>
 				<?php endforeach ?>

@@ -62,6 +62,8 @@ $goods_id = isset($_REQUEST['id'])  ? intval($_REQUEST['id']) : 0;
     /* 获得商品的信息 */
     $goods = get_goods_info($goods_id);
 
+    $goods[brand] = get_good_brand($goods['brand_id']);
+
     // print_r($goods);exit;
 
     if ($goods === false)
@@ -138,6 +140,7 @@ $goods_id = isset($_REQUEST['id'])  ? intval($_REQUEST['id']) : 0;
         $smarty->assign('ur_here',             $position['ur_here']);                  // 当前位置
 
         $properties = get_goods_properties($goods_id);  // 获得商品的规格和属性
+
         $smarty->assign('properties',          $properties['pro']);                              // 商品属性
         //print_r($properties['pro']);exit;
         $smarty->assign('specification',       $properties['spe']);                              // 商品规格
@@ -411,6 +414,33 @@ function get_attr_amount($goods_id, $attr)
     return $GLOBALS['db']->getOne($sql);
 }
 
+
+function get_good_brand($brand__id)
+{
+//    $sql = "SELECT SUM(attr_price) FROM " . $GLOBALS['ecs']->table('goods_attr') .
+//        " WHERE goods_id='$goods_id' AND " . db_create_in($attr, 'goods_attr_id');
+//
+//    return $GLOBALS['db']->getOne($sql);
+
+
+    // get brand
+
+    /* 取商品属性 */
+    $sql = "SELECT *
+                FROM " .$GLOBALS['ecs']->table('goods_attr').  "
+                WHERE brand_id = ".$brand__id;
+
+    $ret = $GLOBALS['db']->getone($sql);
+
+
+    return $ret['brand_name'];
+
+
+
+}
+
+
+
 /**
  * 取得跟商品关联的礼包列表
  *
@@ -458,14 +488,27 @@ function get_package_goods_list($goods_id)
 
         $goods_res = $GLOBALS['db']->getAll($sql);
 
+
         foreach($goods_res as $key => $val)
         {
             $goods_id_array[] = $val['goods_id'];
             $goods_res[$key]['goods_thumb']  = get_image_path($val['goods_id'], $val['goods_thumb'], true);
-            $goods_res[$key]['market_price'] = price_format($val['market_price']);
-            $goods_res[$key]['rank_price']   = price_format($val['rank_price']);
+           // $goods_res[$key]['market_price'] = price_format($val['market_price']);
+            $goods_res[$key]['market_price'] = ($val['market_price']);
+           // $goods_res[$key]['rank_price']   = price_format($val['rank_price']);
+            $goods_res[$key]['rank_price']   = ($val['rank_price']);
             $subtotal += $val['rank_price'] * $val['goods_number'];
+
+
+
         }
+
+
+
+
+
+
+
 
         /* 取商品属性 */
         $sql = "SELECT ga.goods_attr_id, ga.attr_value
