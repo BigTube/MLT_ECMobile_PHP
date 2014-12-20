@@ -60,8 +60,11 @@ $goods_id = isset($_REQUEST['id'])  ? intval($_REQUEST['id']) : 0;
     $smarty->assign('promotion_info', get_promotion_info());
 
     /* 获得商品的信息 */
-    $goods = get_goods_info($goods_id);
+    $goods = get_goods_info_ecmobile($goods_id);
 
+
+print_r($goods);
+  exit;
     $goods['brand_name'] = get_good_brand($goods['brand_id']);
 
     // print_r($goods);exit;
