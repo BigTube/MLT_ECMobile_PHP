@@ -48,8 +48,8 @@
     	// 请求头
 		"SESSION" :
 		{
-			"uid"        : 1000,
-			"sid"        : "01234567890ABCDEF"
+			"uid"        : 496,
+			"sid"        : "37474de06ecf7b8f83d04f5d84be97f8c155c0d0"
 		},
 
         // 回应头
@@ -617,8 +617,8 @@
 			"__desc__" : "用户登录",
 			"request" :
 			{
-				"! name"       : "xuanyan",
-				"! password"   : "123456789"
+				"! name"       : "mactive",
+				"! password"   : "mengqian"
 			},
 			
 			"response" :
