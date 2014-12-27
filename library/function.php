@@ -458,7 +458,7 @@ function ecmobile_url() {
 function get_goods_info_ecmobile($goods_id,$isMobile=false)
 {
     $time = gmtime();
-    $sql = 'SELECT g.*, c.measure_unit, b.brand_id, b.brand_name AS goods_brand, m.type_money AS bonus_money, ' .
+    $sql = 'SELECT g.*, g.goods_is_posted , c.measure_unit, b.brand_id, b.brand_name AS goods_brand, m.type_money AS bonus_money, ' .
         'IFNULL(AVG(r.comment_rank), 0) AS comment_rank, ' .
         "IFNULL(mp.user_price, g.shop_price * '$_SESSION[discount]') AS rank_price " .
         'FROM ' . $GLOBALS['ecs']->table('goods') . ' AS g ' .
@@ -473,7 +473,7 @@ function get_goods_info_ecmobile($goods_id,$isMobile=false)
         "WHERE g.goods_id = '$goods_id' AND g.is_delete = 0 " .
         "GROUP BY g.goods_id";
     $row = $GLOBALS['db']->getRow($sql);
-
+//print_r($row);
     if ($row !== false)
     {
         /* 用户评论级别取整 */

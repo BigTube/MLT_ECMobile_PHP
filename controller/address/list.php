@@ -47,18 +47,16 @@ $consignee_list =  $GLOBALS['db']->getAll($sql);
 
 $consignee = get_consignee($user_id);// 取得默认地址
 
+
+
 $result = array();
 
 foreach ($consignee_list as $key => $value) {
 	
 
 	$result[$key]['id'] = $value['address_id'];
-
 	$result[$key]['consignee'] = $value['consignee'];
-
 	$result[$key]['address'] = $value['address'];
-
-
 	$country = $value['country'];
 	$sql1 = "SELECT * FROM " . $GLOBALS['ecs']->table('region') .
         " WHERE region_id = '$country'";
@@ -92,6 +90,47 @@ foreach ($consignee_list as $key => $value) {
 		$result[$key]['default_address'] = 0;
 
 	}
+
+
+    $result[$key]["email"] = $value['email'];
+
+    $result[$key]["country"] = $value['country'];
+    $result[$key]["province"] = $value['province'];
+    $result[$key]["city"] = $value['city'];
+    $result[$key]["district"] = $value['district'];
+
+    $ids = array($result[$key]["country"], $result[$key]["province"], $result[$key]["city"], $result[$key]["district"]);
+    $ids = array_filter($ids);
+
+    $sql = "SELECT * FROM " . $GLOBALS['ecs']->table('region') .
+        " WHERE region_id IN(".implode(',', $ids).')';
+    $data = $GLOBALS['db']->getAll($sql);
+    $out = array();
+
+    foreach ($data as $key1 => $val) {
+        $out[$val['region_id']] = $val['region_name'];
+    }
+
+   // $result["country_name"] = isset($out[$result["country"]]) ? $out[$result["country"]] : '';
+   // $result["province_name"] = isset($out[$result["province"]]) ? $out[$result["province"]] : '';
+   // $result["city_name"] = isset($out[$result["city"]]) ? $out[$result["city"]] : '';
+    $result[$key]["district_name"] = isset($out[$value["district"]]) ? $out[$value["district"]] : '';
+
+
+
+    $result[$key]["address"] = $value['address'];
+    $result[$key]["zipcode"] = $value['zipcode'];
+    $result[$key]["mobile"] = $value['mobile'];
+    $result[$key]["sign_building"] = $value['sign_building'];
+    $result[$key]["best_time"] = $value['best_time'];
+   // $result[$key]["default_address"] = $value['default_address'];
+    $result[$key]["tel"] = $value['tel'];
+
+
+
+    print_r($result);
+
+
 
 }
 

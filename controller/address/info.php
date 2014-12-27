@@ -49,6 +49,7 @@ if ($arr == false)
 
 $consignee = get_consignee($user_id);// 取得默认地址
 
+
 $result["id"] = $arr['address_id'];
 $result["consignee"] = $arr['consignee'];
 $result["email"] = $arr['email'];
