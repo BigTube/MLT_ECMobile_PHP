@@ -128,7 +128,7 @@ foreach ($consignee_list as $key => $value) {
 
 
 
-    print_r($result);
+   // print_r($result);
 
 
 
