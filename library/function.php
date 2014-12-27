@@ -363,7 +363,8 @@ function API_DATA($type, $readData)
 				"pictures" => array(),
 				"properties" => array(),
 				"specification" => array(),
-                "brand_name" => $readData["brand_name"]
+                "brand_name" => $readData["brand_name"],
+                "goods_is_posted" => $readData['goods_is_posted']
 			);
 			foreach ($readData['rank_prices'] as $key => $value) {
 				$outData['rank_prices'][] = array(

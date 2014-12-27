@@ -63,8 +63,7 @@ $goods_id = isset($_REQUEST['id'])  ? intval($_REQUEST['id']) : 0;
     $goods = get_goods_info_ecmobile($goods_id);
 
 
-print_r($goods);
-      exit;
+
     $goods['brand_name'] = get_good_brand($goods['brand_id']);
 
     // print_r($goods);exit;
@@ -181,13 +180,14 @@ $smarty->assign('now_time',  gmtime());           // 当前系统时间
 
 $data = $smarty->_var['goods'];
 
-$data['aiaiaia'] = "aiaiia";
+//$data['aiaiaia'] = "aiaiia";
 $data['rank_prices'] = $smarty->_var['rank_prices'];
 $data['pictures'] = $smarty->_var['pictures'];
 $data['properties'] = $smarty->_var['properties'];
 $data['specification'] = $smarty->_var['specification'];
 $data['collected'] = 0;
 $data['goods_desc'] =  '<!DOCTYPE html><html><head><title>'.$data['goods_name'].'</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="viewport" content="initial-scale = 1.0 , minimum-scale = 1.0 , maximum-scale = 1.0" /><style>img {width: auto\9;height: auto;vertical-align: middle;border: 0;-ms-interpolation-mode: bicubic;max-width: 100%; }html { font-size:100%; } </style>'.$base.'</head><body>'.$data['goods_desc'].'</body></html>';
+
 
 
 if (!empty($tmp[0]) && $tmp[0] == 'desc') {
