@@ -74,7 +74,7 @@ switch ($tmp[0]) {
 			foreach ($cart_goods['goods_list'] as $key => $value) {
 				unset($cart_goods['goods_list'][$key]['user_id']);
 				unset($cart_goods['goods_list'][$key]['session_id']);
-				$cart_goods['goods_list'][$key]['pictures'] = array(
+				$cart_goods['goods_list'][$key]['img'] = array(
 						'goods'=>API_DATA("PHOTO", $value['goods']),
                         'original' => API_DATA("PHOTO", $value['original']),
 						'thumb' => API_DATA("PHOTO", $value['thumb'])
