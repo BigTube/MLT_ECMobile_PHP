@@ -67,6 +67,23 @@ function GZ_user_info($user_id)
     	$level = 1;
     }
 
+    // 红包
+    $sql='SELECT * FROM ' . $GLOBALS['ecs']->table('user_bonus') . " WHERE user_id='$user_id' AND order_id =0 ";
+    $row = $GLOBALS['db']->getRow($sql);
+    if($row)
+    {
+        $bonus = array(
+              "count"=> count($row)
+
+        );
+    }else{
+        $bonus = array(
+            "count"=> 0
+
+        );
+    }
+
+
 	return array(
 		'id' => $user_info['user_id'],
 		'name'=>$user_info['user_name'],
@@ -74,6 +91,7 @@ function GZ_user_info($user_id)
 		'rank_level' => $level,
 		'collection_num' => $collection_num,
         'email' => $user_info['email'],
+        'bonus' => $bonus,
 		"order_num" => array(
 			'await_pay' => $await_pay,
 			'await_ship' => $await_ship,

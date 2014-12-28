@@ -152,6 +152,8 @@ switch ($tmp[0]) {
 
 		    /*
 		     * 计算订单的费用
+		     *
+		     *   系统中的
 		     */
 		    $total = order_fee($order, $cart_goods, $consignee);
 
