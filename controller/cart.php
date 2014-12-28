@@ -191,7 +191,7 @@ function gz_get_cart_goods()
         }
         $goods_list[] = $row;
     }
-    $total['saving']       = $total['total_market_price'] - $total['total_shop_price']
+    $total['saving']       = $total['total_market_price'] - $total['total_shop_price'];
     if ($total['total_market_price'] > 0)
     {
         $total['save_rate'] = $total['total_market_price'] ? round(($total['total_market_price'] - $total['goods_price']) *
