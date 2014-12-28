@@ -65,7 +65,7 @@ $out = array(
 // 更新个购物车中的相应的session为当前的session
 
 
-$sql = " UPDATE ". $GLOBALS['ecs']->table('cart') ." SET session_id = '".$out['session']['sid']."' WHERE   user_id = ".$_SESSION['user_id'] ;
+$sql = " UPDATE ". $GLOBALS['ecs']->table('cart') ." SET session_id = '".SESS_ID."' WHERE   user_id = ".$_SESSION['user_id'] ;
 
 $db->query($sql);
 
