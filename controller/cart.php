@@ -75,9 +75,9 @@ switch ($tmp[0]) {
 				unset($cart_goods['goods_list'][$key]['user_id']);
 				unset($cart_goods['goods_list'][$key]['session_id']);
 				$cart_goods['goods_list'][$key]['img'] = array(
-						'thumb'=>API_DATA("PHOTO", $value['goods_img']),
-                        'url' => API_DATA("PHOTO", $value['original_img']),
-						'small' => API_DATA("PHOTO", $value['goods_thumb'])
+						'goods'=>API_DATA("PHOTO", $value['goods']),
+                        'original' => API_DATA("PHOTO", $value['original']),
+						'thumb' => API_DATA("PHOTO", $value['thumb'])
 				);
 				// $cart_goods['goods_list'][$key]['id'] = $value['rec_id'];
                 if (isset($cart_goods['goods_list'][$key]['product_id'])) {
