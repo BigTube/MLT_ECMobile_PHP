@@ -172,8 +172,8 @@ switch ($tmp[0]) {
 		    $cod_disabled      = true;
 
 		    // 查看购物车中是否全为免运费商品，若是则把运费赋为零
-		    $sql = 'SELECT count(*) FROM ' . $ecs->table('cart') . " WHERE `session_id` = '" . SESS_ID. "' AND `extension_code` != 'package_buy' AND `is_shipping` = 0";
-		    $shipping_count = $db->getOne($sql);
+		    //$sql = 'SELECT count(*) FROM ' . $ecs->table('cart') . " WHERE `session_id` = '" . SESS_ID. "' AND `extension_code` != 'package_buy' AND `is_shipping` = 0";
+		    //$shipping_count = $db->getOne($sql);
 
             $ck = array();
 		    foreach ($shipping_list AS $key => $val)
@@ -187,7 +187,8 @@ switch ($tmp[0]) {
 		        $shipping_cfg = unserialize_config($val['configure']);
 		        //$shipping_fee = ($shipping_count == 0 AND $cart_weight_price['free_shipping'] == 1) ?
 		        //    0 : shipping_fee($val['shipping_code'], unserialize($val['configure']),
-		       
+
+               // print_r($total);
 		        $shipping_fee = $total['shipping_fee'];	
 
 		        //$cart_weight_price['weight'], $cart_weight_price['amount'], $cart_weight_price['number']);
@@ -588,7 +589,7 @@ switch ($tmp[0]) {
 	        'card_id'         => isset($_POST['card']) ? intval($_POST['card']) : 0,
 	        'card_message'    => trim($_POST['card_message']),
 	        'surplus'         => isset($_POST['surplus']) ? floatval($_POST['surplus']) : 0.00,
-	        ' '        => isset($_POST['integral']) ? intval($_POST['integral']) : 0,
+	        'integral'        => isset($_POST['integral']) ? intval($_POST['integral']) : 0,
 	        'bonus_id'        => isset($_POST['bonus']) ? intval($_POST['bonus']) : 0,
 	        'need_inv'        => empty($_POST['need_inv']) ? 0 : 1,
 	        'inv_type'        => $_POST['inv_type'],
@@ -996,7 +997,7 @@ switch ($tmp[0]) {
 	    }
 
 	    /* 订单信息 */
-	    $smarty->assign('order',      $order);
+	    $$smarty->assign('order',      $order);
 	    $smarty->assign('total',      $total);
 	    $smarty->assign('goods_list', $cart_goods);
 	    $smarty->assign('order_submit_back', sprintf($_LANG['order_submit_back'], $_LANG['back_home'], $_LANG['goto_user_center'])); // 返回提示
