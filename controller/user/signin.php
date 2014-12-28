@@ -63,6 +63,13 @@ $out = array(
 	'user' => $user_info
 );
 
+// 更新个购物车中的相应的session为当前的session
+
+
+$sql = " UPDATE ". $GLOBALS['ecs']->table('cart') ." SET session_id = '".SESS_ID."' WHERE   user_id = ".$_SESSION['user_id'] ;
+
+$db->query($sql);
+
 
 update_user_info();
 recalculate_price();
