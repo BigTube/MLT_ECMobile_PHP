@@ -152,9 +152,14 @@ switch ($tmp[0]) {
 
 		    /*
 		     * 计算订单的费用
+		     *
+		     *   系统中的
 		     */
+
+		    //获取 订单的信息
 		    $total = order_fee($order, $cart_goods, $consignee);
 
+            //print_r($total);
 		    $smarty->assign('total', $total);
 		    $smarty->assign('shopping_money', sprintf($_LANG['shopping_money'], $total['formated_goods_price']));
 		    $smarty->assign('market_price_desc', sprintf($_LANG['than_market_price'], $total['formated_market_price'], $total['formated_saving'], $total['save_rate']));
@@ -167,8 +172,8 @@ switch ($tmp[0]) {
 		    $cod_disabled      = true;
 
 		    // 查看购物车中是否全为免运费商品，若是则把运费赋为零
-		    $sql = 'SELECT count(*) FROM ' . $ecs->table('cart') . " WHERE `session_id` = '" . SESS_ID. "' AND `extension_code` != 'package_buy' AND `is_shipping` = 0";
-		    $shipping_count = $db->getOne($sql);
+		    //$sql = 'SELECT count(*) FROM ' . $ecs->table('cart') . " WHERE `session_id` = '" . SESS_ID. "' AND `extension_code` != 'package_buy' AND `is_shipping` = 0";
+		    //$shipping_count = $db->getOne($sql);
 
             $ck = array();
 		    foreach ($shipping_list AS $key => $val)
@@ -180,12 +185,18 @@ switch ($tmp[0]) {
                 $ck[$val['shipping_id']] = $val['shipping_id'];
 
 		        $shipping_cfg = unserialize_config($val['configure']);
-		        $shipping_fee = ($shipping_count == 0 AND $cart_weight_price['free_shipping'] == 1) ? 0 : shipping_fee($val['shipping_code'], unserialize($val['configure']),
-		        $cart_weight_price['weight'], $cart_weight_price['amount'], $cart_weight_price['number']);
+		        //$shipping_fee = ($shipping_count == 0 AND $cart_weight_price['free_shipping'] == 1) ?
+		        //    0 : shipping_fee($val['shipping_code'], unserialize($val['configure']),
+
+               // print_r($total);
+		        $shipping_fee = $total['shipping_fee'];	
+
+		        //$cart_weight_price['weight'], $cart_weight_price['amount'], $cart_weight_price['number']);
 
 		        $shipping_list[$key]['format_shipping_fee'] = price_format($shipping_fee, false);
 		        $shipping_list[$key]['shipping_fee']        = $shipping_fee;
-		        $shipping_list[$key]['free_money']          = price_format($shipping_cfg['free_money'], false);
+		        $shipping_list[$key]['format_free_money']          = price_format($shipping_cfg['free_money'], false);
+		        $shipping_list[$key]['free_money']          = $shipping_cfg['free_money'];
 		        $shipping_list[$key]['insure_formated']     = strpos($val['insure'], '%') === false ?
 		            price_format($val['insure'], false) : $val['insure'];
 
@@ -341,10 +352,12 @@ switch ($tmp[0]) {
 		                $user_bonus[$key]['bonus_money_formated'] = price_format($val['type_money'], false);
 		            }
 		            $smarty->assign('bonus_list', $user_bonus);
+
+		            // 能使用红包
+		            $smarty->assign('allow_use_bonus', 1);
 		        }
 
-		        // 能使用红包
-		        $smarty->assign('allow_use_bonus', 1);
+		        
 		    }
 
 		    /* 如果使用缺货处理，取得缺货处理列表 */
@@ -403,6 +416,9 @@ switch ($tmp[0]) {
 			$out['allow_use_bonus'] = $smarty->_var['allow_use_bonus'];//是否使用红包
 		}
 		
+		//print_r($smarty);
+
+         //exit;
 		if (!empty($smarty->_var['bonus_list'])) 
 		{
 			$out['bonus'] = $smarty->_var['bonus_list'];//红包
@@ -981,7 +997,7 @@ switch ($tmp[0]) {
 	    }
 
 	    /* 订单信息 */
-	    $smarty->assign('order',      $order);
+	    $$smarty->assign('order',      $order);
 	    $smarty->assign('total',      $total);
 	    $smarty->assign('goods_list', $cart_goods);
 	    $smarty->assign('order_submit_back', sprintf($_LANG['order_submit_back'], $_LANG['back_home'], $_LANG['goto_user_center'])); // 返回提示

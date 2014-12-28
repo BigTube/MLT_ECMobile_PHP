@@ -57,6 +57,21 @@ if (register($username, $password, $email, $other) === false) {
 	GZ_Api::outPut(11);
 }
 
+// 添加当用户新注册后添加红包的情况
+$sql = 'SELECT type_id FROM ' . $ecs->table("bonus_type").' WHERE send_type=4 ';  
+$reg_bonus = $db->getAll($sql);
+if($reg_bonus){    
+	 foreach ($reg_bonus AS $val)  
+	 {  
+		$sql = "INSERT INTO ".$ecs->table('user_bonus')
+				."( bonus_type_id, bonus_sn, user_id, used_time, order_id, emailed)"
+				."VALUES('$val[type_id]', 0, '".$_SESSION[user_id]."', 0, 0, 0)";  
+		$db->query($sql);
+
+	 }  
+}  
+
+
 /*把新注册用户的扩展信息插入数据库*/
 $sql = 'SELECT id FROM ' . $ecs->table('reg_fields') . ' WHERE type = 0 AND display = 1 ORDER BY dis_order, id';   //读出所有自定义扩展字段的id
 $fields_arr = $db->getAll($sql);
@@ -64,19 +79,19 @@ $fields_arr = $db->getAll($sql);
 $extend_field_str = '';    //生成扩展字段的内容字符串
 foreach ($fields_arr AS $val)
 {
-    $extend_field_index = $val['id'];
-    if(!empty($filelds[$extend_field_index]))
-    {
-        $temp_field_content = strlen($filelds[$extend_field_index]) > 100 ? mb_substr($filelds[$extend_field_index], 0, 99) : $filelds[$extend_field_index];
-        $extend_field_str .= " ('" . $_SESSION['user_id'] . "', '" . $val['id'] . "', '" . $temp_field_content . "'),";
-    }
+	$extend_field_index = $val['id'];
+	if(!empty($filelds[$extend_field_index]))
+	{
+		$temp_field_content = strlen($filelds[$extend_field_index]) > 100 ? mb_substr($filelds[$extend_field_index], 0, 99) : $filelds[$extend_field_index];
+		$extend_field_str .= " ('" . $_SESSION['user_id'] . "', '" . $val['id'] . "', '" . $temp_field_content . "'),";
+	}
 }
 $extend_field_str = substr($extend_field_str, 0, -1);
 
 if ($extend_field_str)      //插入注册扩展数据
 {
-    $sql = 'INSERT INTO '. $ecs->table('reg_extend_info') . ' (`user_id`, `reg_field_id`, `content`) VALUES' . $extend_field_str;
-    $db->query($sql);
+	$sql = 'INSERT INTO '. $ecs->table('reg_extend_info') . ' (`user_id`, `reg_field_id`, `content`) VALUES' . $extend_field_str;
+	$db->query($sql);
 }
 
 $user_info = GZ_user_info($_SESSION['user_id']);
