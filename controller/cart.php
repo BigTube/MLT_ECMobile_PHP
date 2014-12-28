@@ -149,7 +149,7 @@ function gz_get_cart_goods()
         $total['total_shop_price']  += $row['shop_price'] * $row['goods_number'];
         $total['total_market_price'] += $row['market_price'] * $row['goods_number'];
 
-        $row['subtotal']     = $row['shop_price'] * $row['goods_number'];
+        $row['subtotal']     = strval($row['shop_price'] * $row['goods_number']);
         $row['shop_price']   = $row['shop_price'];
         $row['market_price'] = $row['market_price'];
 
@@ -194,7 +194,7 @@ function gz_get_cart_goods()
     $total['saving']       = $total['total_market_price'] - $total['total_shop_price'];
     if ($total['total_market_price'] > 0)
     {
-        $total['save_rate'] = $total['total_market_price'] ? round(($total['total_market_price'] - $total['goods_price']) *
+        $total['save_rate'] = $total['total_market_price'] ? round(($total['total_market_price'] - $total['total_shop_price']) *
         100 / $total['total_market_price']).'%' : 0;
     }
     $total['total_shop_price']  = $total['total_shop_price'];
