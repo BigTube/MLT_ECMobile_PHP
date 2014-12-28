@@ -74,10 +74,10 @@ switch ($tmp[0]) {
 			foreach ($cart_goods['goods_list'] as $key => $value) {
 				unset($cart_goods['goods_list'][$key]['user_id']);
 				unset($cart_goods['goods_list'][$key]['session_id']);
-				$cart_goods['goods_list'][$key]['img'] = array(
-						'thumb'=>API_DATA("PHOTO", $value['goods_img']),
-                        'url' => API_DATA("PHOTO", $value['original_img']),
-						'small' => API_DATA("PHOTO", $value['goods_thumb'])
+				$cart_goods['goods_list'][$key]['pictures'] = array(
+						'goods'=>API_DATA("PHOTO", $value['goods']),
+                        'original' => API_DATA("PHOTO", $value['original']),
+						'thumb' => API_DATA("PHOTO", $value['thumb'])
 				);
 				// $cart_goods['goods_list'][$key]['id'] = $value['rec_id'];
                 if (isset($cart_goods['goods_list'][$key]['product_id'])) {
@@ -126,15 +126,15 @@ function gz_get_cart_goods()
     /* 初始化 */
     $goods_list = array();
     $total = array(
-        'goods_price'  => 0, // 本店售价合计（有格式）
-        'market_price' => 0, // 市场售价合计（有格式）
+        'total_shop_price'  => 0, // 本店售价合计（有格式）
+        'total_market_price' => 0, // 市场售价合计（有格式）
         'saving'       => 0, // 节省金额（有格式）
         'save_rate'    => 0, // 节省百分比
         'goods_amount' => 0, // 本店售价合计（无格式）
     );
 
     /* 循环、统计 */
-    $sql = "SELECT *, IF(parent_id, parent_id, goods_id) AS pid " .
+    $sql = "SELECT *, goods_price AS shop_price, IF(parent_id, parent_id, goods_id) AS pid " .
             " FROM " . $GLOBALS['ecs']->table('cart') . " " .
             " WHERE session_id = '" . SESS_ID . "' AND rec_type = '" . CART_GENERAL_GOODS . "'" .
             " ORDER BY pid, parent_id";
@@ -146,12 +146,12 @@ function gz_get_cart_goods()
 
     while ($row = $GLOBALS['db']->fetchRow($res))
     {
-        $total['goods_price']  += $row['goods_price'] * $row['goods_number'];
-        $total['market_price'] += $row['market_price'] * $row['goods_number'];
+        $total['total_shop_price']  += $row['shop_price'] * $row['goods_number'];
+        $total['total_market_price'] += $row['market_price'] * $row['goods_number'];
 
-        $row['subtotal']     = price_format($row['goods_price'] * $row['goods_number'], false);
-        $row['goods_price']  = price_format($row['goods_price'], false);
-        $row['market_price'] = price_format($row['market_price'], false);
+        $row['subtotal']     = strval($row['shop_price'] * $row['goods_number']);
+        $row['shop_price']   = $row['shop_price'];
+        $row['market_price'] = $row['market_price'];
 
         /* 统计实体商品和虚拟商品的个数 */
         if ($row['is_real'])
@@ -181,9 +181,9 @@ function gz_get_cart_goods()
             $goods_img = $GLOBALS['db']->getOne("SELECT `goods_img` FROM " . $GLOBALS['ecs']->table('goods') . " WHERE `goods_id`='{$row['goods_id']}'");
             $original_img = $GLOBALS['db']->getOne("SELECT `original_img` FROM " . $GLOBALS['ecs']->table('goods') . " WHERE `goods_id`='{$row['goods_id']}'");
 
-            $row['goods_thumb'] = get_image_path($row['goods_id'], $goods_thumb, true);
-            $row['goods_img'] = get_image_path($row['goods_id'], $goods_img, true);
-            $row['original_img'] = get_image_path($row['goods_id'], $original_img, true);
+            $row['thumb'] = get_image_path($row['goods_id'], $goods_thumb, true);
+            $row['goods'] = get_image_path($row['goods_id'], $goods_img, true);
+            $row['original'] = get_image_path($row['goods_id'], $original_img, true);
         }
         if ($row['extension_code'] == 'package_buy')
         {
@@ -191,15 +191,14 @@ function gz_get_cart_goods()
         }
         $goods_list[] = $row;
     }
-    $total['goods_amount'] = $total['goods_price'];
-    $total['saving']       = price_format($total['market_price'] - $total['goods_price'], false);
-    if ($total['market_price'] > 0)
+    $total['saving']       = $total['total_market_price'] - $total['total_shop_price'];
+    if ($total['total_market_price'] > 0)
     {
-        $total['save_rate'] = $total['market_price'] ? round(($total['market_price'] - $total['goods_price']) *
-        100 / $total['market_price']).'%' : 0;
+        $total['save_rate'] = $total['total_market_price'] ? round(($total['total_market_price'] - $total['total_shop_price']) *
+        100 / $total['total_market_price']).'%' : 0;
     }
-    $total['goods_price']  = price_format($total['goods_price'], false);
-    $total['market_price'] = price_format($total['market_price'], false);
+    $total['total_shop_price']  = $total['total_shop_price'];
+    $total['total_market_price'] = $total['total_market_price'];
     $total['real_goods_count']    = $real_goods_count;
     $total['virtual_goods_count'] = $virtual_goods_count;
 
