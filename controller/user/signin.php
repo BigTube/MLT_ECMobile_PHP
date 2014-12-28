@@ -55,8 +55,7 @@ $user_info = GZ_user_info($_SESSION['user_id']);
 
 $out = array(
 	'session' => array(
-		//'sid' => SESS_ID.$GLOBALS['sess']->gen_session_key(SESS_ID),
-		'sid' => SESS_ID,
+		'sid' => SESS_ID.$GLOBALS['sess']->gen_session_key(SESS_ID),
 		'uid' => $_SESSION['user_id']
 	),
 
