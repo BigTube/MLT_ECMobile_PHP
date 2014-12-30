@@ -421,7 +421,7 @@ switch ($tmp[0]) {
          //exit;
 		if (!empty($smarty->_var['bonus_list'])) 
 		{
-			$out['bonus'] = $smarty->_var['bonus_list'];//红包
+			$out['bonus_list'] = $smarty->_var['bonus_list'];//红包
 		}
 		
 		$out['inv_content_list'] = $smarty->_var['inv_content_list'];//能否开发票 
