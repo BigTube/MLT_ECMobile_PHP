@@ -590,7 +590,7 @@ switch ($tmp[0]) {
 	        'card_message'    => trim($_POST['card_message']),
 	        'surplus'         => isset($_POST['surplus']) ? floatval($_POST['surplus']) : 0.00,
 	        'integral'        => isset($_POST['integral']) ? intval($_POST['integral']) : 0,
-	        'bonus_id'        => isset($_POST['bonus']) ? intval($_POST['bonus']) : 0,
+	        'bonus_id'        => isset($_POST['bonus_id']) ? intval($_POST['bonus_id']) : 0,
 	        'need_inv'        => empty($_POST['need_inv']) ? 0 : 1,
 	        'inv_type'        => $_POST['inv_type'],
 	        'inv_payee'       => trim($_POST['inv_payee']),

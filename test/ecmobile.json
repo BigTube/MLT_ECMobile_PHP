@@ -856,17 +856,17 @@
 				"! status"   : "{STATUS}",
 				"data"     :
 				{
-					"allow_use_integral" : 0,							// 是否使用积分
-					"allow_use_bonus"    : 0,							// 是否使用红包
-					"goods_list"         : ["{CART_GOODS}"],
-					"consignee"          : "{ADDRESS}",
-					"shippings"          : ["{SHIPPING}"],
-					"payments"           : ["{PAYMENT}"],
-					"bonus"              : ["{BONUS}"],
-					"your_integral"      : 100,							// 当前用户的剩余积分
-					"order_max_integral" : 100,							// 订单最大可使用积分
-		            "inv_content_list"   : ["{INVOICE}"],
-		            "inv_type_list"      : ["{INVOICE}"]
+					"allow_use_integral"   :  0,							// 是否使用积分
+					"allow_use_bonus"      :  0,							// 是否使用红包
+					"goods_list"            : ["{CART_GOODS}"],
+					"consignee"             : "{ADDRESS}",
+					"shippings"             : ["{SHIPPING}"],
+					"payments"              : ["{PAYMENT}"],
+					"bonus_id"              : ["{BONUS}"],
+					"your_integral"        : 100,							// 当前用户的剩余积分
+					"order_max_integral"  : 100,							// 订单最大可使用积分
+		            "inv_content_list"     : ["{INVOICE}"],
+		            "inv_type_list"        : ["{INVOICE}"]
 				}
 			}
 		},
