@@ -525,7 +525,7 @@ switch ($tmp[0]) {
 		include_once(EC_PATH . '/includes/lib_clips.php');
 	    include_once(EC_PATH . '/includes/lib_payment.php');
 
-         error_reporting(E_ALL);
+         //error_reporting(E_ALL);
 	    /* 取得购物类型 */
 	    $flow_type = isset($_SESSION['flow_type']) ? intval($_SESSION['flow_type']) : CART_GENERAL_GOODS;
 
