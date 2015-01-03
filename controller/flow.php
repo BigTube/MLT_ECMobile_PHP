@@ -525,6 +525,7 @@ switch ($tmp[0]) {
 		include_once(EC_PATH . '/includes/lib_clips.php');
 	    include_once(EC_PATH . '/includes/lib_payment.php');
 
+         error_reporting(E_ALL);
 	    /* 取得购物类型 */
 	    $flow_type = isset($_SESSION['flow_type']) ? intval($_SESSION['flow_type']) : CART_GENERAL_GOODS;
 
@@ -996,16 +997,23 @@ switch ($tmp[0]) {
 	        $order['shipping_name']=trim(stripcslashes($order['shipping_name']));
 	    }
 
+
+
 	    /* 订单信息 */
-	    $$smarty->assign('order',      $order);
+	    $smarty->assign('order',  $order);
+
 	    $smarty->assign('total',      $total);
+
 	    $smarty->assign('goods_list', $cart_goods);
+
 	    $smarty->assign('order_submit_back', sprintf($_LANG['order_submit_back'], $_LANG['back_home'], $_LANG['goto_user_center'])); // 返回提示
 
-	    user_uc_call('add_feed', array($order['order_id'], BUY_GOODS)); //推送feed到uc
+	    //user_uc_call('add_feed', array($order['order_id'], BUY_GOODS)); //推送feed到uc
 	    unset($_SESSION['flow_consignee']); // 清除session中保存的收货人信息
 	    unset($_SESSION['flow_order']);
 	    unset($_SESSION['direct_shopping']);
+
+
         $subject = $cart_goods[0]['goods_name'].'等'.count($cart_goods).'种商品';
 		// print_r($smarty->_var['order']['order_sn']);
 		$out = array('order_sn'=>$smarty->_var['order']['order_sn'], 'order_id'=>$order['order_id'], 'order_info' => array(
@@ -1016,6 +1024,7 @@ switch ($tmp[0]) {
             'desc' => $subject,
             'order_sn' => $order['order_sn']
          ));
+
 		GZ_Api::outPut($out);
 		break;
 	default:
