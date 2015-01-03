@@ -1655,8 +1655,10 @@ function cart_goods_image($type = CART_GENERAL_GOODS)
 //        " WHERE session_id = '" . SESS_ID . "' " .
 //        "AND rec_type = '$type'";
 
-    $sql="SELECT  c.rec_id,c.user_id, c.goods_id,c.goods_name, c.goods_sn,c.goods_number, c.market_price,c.goods_price,c.goods_attr,c.is_real,"
-        ." c.extension_code,c.parent_id,c.is_gift,c.is_shipping,c.goods_is_posted,c.goods_price * c.goods_number AS subtotal, g.* "
+    $sql="SELECT  c.rec_id,c.user_id, c.goods_id,c.goods_name, c.goods_sn,c.goods_number, c.market_price,
+          c.goods_price,c.goods_attr,c.is_real,"
+        ." c.extension_code,c.parent_id,c.is_gift,c.is_shipping,
+        c.goods_is_posted,c.goods_price * c.goods_number AS subtotal, g.goods_img ,goods_img_mobile "
         ."FROM " . $GLOBALS['ecs']->table('cart') ."  AS c"
         ." LEFT JOIN " . $GLOBALS['ecs']->table('goods') ." AS g ON g.`goods_id` = c.`goods_id`"
         ."WHERE c.session_id = '".SESS_ID . "' "
