@@ -118,7 +118,7 @@ switch ($tmp[0]) {
 		    $smarty->assign('consignee', $consignee);
 
 		    /* 对商品信息赋值 */
-		    $cart_goods = cart_goods($flow_type); // 取得商品列表，计算合计
+		    $cart_goods = cart_goods_image($flow_type); // 取得商品列表，计算合计
 		    $smarty->assign('goods_list', $cart_goods);
 
 		    /* 对是否允许修改购物车赋值 */
@@ -1641,6 +1641,56 @@ function cart_favourable_amount($favourable)
     return $GLOBALS['db']->getOne($sql);
 }
 
+/**
+ * 取得购物车商品
+ * @param   int     $type   类型：默认普通商品
+ * @return  array   购物车商品数组
+ */
+function cart_goods_image($type = CART_GENERAL_GOODS)
+{
+//    $sql = "SELECT rec_id, user_id, goods_id, goods_name, goods_sn, goods_number, " .
+//        "market_price, goods_price, goods_attr, is_real, extension_code, parent_id, is_gift, is_shipping, goods_is_posted , " .
+//        "goods_price * goods_number AS subtotal " .
+//        "FROM " . $GLOBALS['ecs']->table('cart') .
+//        " WHERE session_id = '" . SESS_ID . "' " .
+//        "AND rec_type = '$type'";
+
+    $sql="SELECT  c.rec_id,c.user_id, c.goods_id,c.goods_name, c.goods_sn,c.goods_number, c.market_price,c.goods_price,c.goods_attr,c.is_real,"
+        ." c.extension_code,c.parent_id,c.is_gift,c.is_shipping,c.goods_is_posted,c.goods_price * c.goods_number AS subtotal, g.* "
+        ."FROM " . $GLOBALS['ecs']->table('cart') ."  AS c"
+        ." LEFT JOIN " . $GLOBALS['ecs']->table('goods') ." AS g ON g.`goods_id` = c.`goods_id`"
+        ."WHERE c.session_id = '".SESS_ID . "' "
+        ."AND c.rec_type = '$type' ";
+
+
+
+
+    $arr = $GLOBALS['db']->getAll($sql);
+
+
+    /* 格式化价格及礼包商品 */
+    foreach ($arr as $key => $value)
+    {
+        $arr[$key]['formated_market_price'] = price_format($value['market_price'], false);
+        $arr[$key]['formated_goods_price']  = price_format($value['goods_price'], false);
+        $arr[$key]['formated_subtotal']     = price_format($value['subtotal'], false);
+
+        if ($value['extension_code'] == 'package_buy')
+        {
+            $arr[$key]['package_goods_list'] = get_package_goods($value['goods_id']);
+        }
+
+        $arr[$key]['img'] = array(
+            'goods'=> $value['goods_img'],
+            'original' =>  $value['goods_img'],
+            'thumb' =>  $value['goods_img_mobile']
+        );
+
+
+    }
+
+    return $arr;
+}
 
 
 ?>
