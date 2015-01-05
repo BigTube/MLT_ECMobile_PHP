@@ -552,7 +552,8 @@
 			"request" :
 			{
 				"! filter"     : "{FILTER}",
-				"pagination"   : "{PAGINATION}"
+				"pagination"   : "{PAGINATION}",
+                "intro"         : "promotion"
 			},
 
 			"response" :

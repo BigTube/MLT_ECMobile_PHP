@@ -189,6 +189,11 @@ $_REQUEST['keywords']   = !empty($_REQUEST['keywords'])   ? htmlspecialchars(tri
 
   $intromode = '';    //方式，用于决定搜索结果页标题图片
 
+ if(!empty($_POST['intro']))
+ {
+     $_REQUEST['intro'] = $_POST['intro'];
+ }
+
   if (!empty($_REQUEST['intro']))
   {
       switch ($_REQUEST['intro'])
@@ -308,6 +313,7 @@ $_REQUEST['keywords']   = !empty($_REQUEST['keywords'])   ? htmlspecialchars(tri
   $sql   = "SELECT COUNT(*) FROM " .$ecs->table('goods'). " AS g ".
       "WHERE g.is_delete = 0 AND g.is_on_sale = 1 AND g.is_alone_sale = 1 $attr_in ".
       "AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock ." ) ".$tag_where." )";
+
   $count = $db->getOne($sql);
 
   $max_page = ($count> 0) ? ceil($count / $size) : 1;
@@ -326,6 +332,7 @@ $_REQUEST['keywords']   = !empty($_REQUEST['keywords'])   ? htmlspecialchars(tri
           "WHERE g.is_delete = 0 AND g.is_on_sale = 1 AND g.is_alone_sale = 1 $attr_in ".
               "AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock . " ) ".$tag_where." ) " .
           "ORDER BY $sort $order";
+
   $res = $db->SelectLimit($sql, $size, ($page - 1) * $size);
 
   $arr = array();

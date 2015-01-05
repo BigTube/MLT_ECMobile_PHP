@@ -32,7 +32,7 @@ $data = array();
 
 $cat_id = _POST('category_id', 0);
 
-if (!empty($cat_id)) {
+if ( $cat_id > 0 ) {
 	$children = get_children($cat_id);
 	$sql = "SELECT b.brand_id, b.brand_name, b.brand_logo, COUNT(*) AS goods_num ".
 	            "FROM " . $GLOBALS['ecs']->table('brand') . "AS b, ". $GLOBALS['ecs']->table('goods') . " AS g LEFT JOIN ". $GLOBALS['ecs']->table('goods_cat') . " AS gc ON g.goods_id = gc.goods_id " .
@@ -41,13 +41,24 @@ if (!empty($cat_id)) {
 	            "GROUP BY b.brand_id HAVING goods_num > 0 ORDER BY b.sort_order, b.brand_id ASC";
 
 	$brand_list = $GLOBALS['db']->getAll($sql);
+
 } else {
-	$brand_list = get_brands();
+
+	//$brand_list = get_brands();
+    $sql = "SELECT b.brand_id, b.brand_name, b.brand_logo, b.brand_desc, COUNT(*) AS goods_num, IF(b.brand_logo > '', '1', '0') AS tag ".
+        "FROM " . $GLOBALS['ecs']->table('brand') . "AS b, ".
+        $GLOBALS['ecs']->table('goods') . " AS g ".
+        "WHERE g.brand_id = b.brand_id  AND is_show = 1 " .
+        " AND g.is_on_sale = 1 AND g.is_alone_sale = 1 AND g.is_delete = 0 ".
+        "GROUP BY b.brand_id HAVING goods_num > 0 ORDER BY tag DESC, b.sort_order ASC";
+
+    $brand_list = $GLOBALS['db']->getAll($sql);
+
 }
 
 foreach ($brand_list as $key => $val) {
     $data[] = array(
-          'url' => $val['brand_logo'],
+          'url' => "data/brandlogo/".$val['brand_logo'],
           'brand_name' => $val['brand_name'],
           'brand_id' => $val['brand_id']
       );
