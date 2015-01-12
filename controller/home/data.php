@@ -330,7 +330,7 @@ function get_brand_info($id)
 
         $brand_tmp['logo'] = "/data/brandlogo/".$row['brand_logo'];
         //$brand_tmp['site_url'] =$row['site_url'];
-        $brand_tmp['site_url'] ="http://www.manluotuo.com/brand-".$row['site_url']."-c0.html";
+        $brand_tmp['site_url'] ="http://www.manluotuo.com/brand-".$row['brand_id']."-c0.html";
         return $brand_tmp;
     }else{
         return false;

@@ -286,6 +286,7 @@ $count = $db->getOne($sql);
 $max_page = ($count > 0) ? ceil($count / $size) : 1;
 if ($page > $max_page) {
     $page = $max_page;
+    $data = API_DATA("SIMPLEGOODS", "");
 } else {
 
     /* 查询商品 */
@@ -405,6 +406,11 @@ if (!empty($smarty->_var['pager'])) {
     );
 } else {
 
+    $pager = array(
+        "total" =>0,
+        "count" => 0,
+        "more" =>0
+    );
 }
 GZ_Api::outPut($data, $pager);
 
