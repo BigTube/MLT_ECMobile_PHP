@@ -26,8 +26,6 @@
  *  Mail:       info@geek-zoo.com
  */
 
-
-
 //include_once(EC_PATH . '/includes/init.php');
 
 //include_once(EC_PATH . '/includes/lib_transaction.php');
@@ -69,12 +67,13 @@ if(!empty($indexData))
     foreach( $indexData->goodsitem as $index=> $item )
     {
         $line_item = array();
-        $line_item["title"] = "";
+        if(!empty($item->title))
+        $line_item["title"] = $item->title;
         $line_item['template'] = $item->tempname;
 
         foreach($item->item  as $key => $good_item )
         {
-            $line_item['item'][$key] = get_goods_info_2($good_item);
+            $line_item['items'][$key] = get_goods_info_2($good_item);
         }
 
         $goods_item_arr[$index] = $line_item;
@@ -87,7 +86,7 @@ if(!empty($indexData))
     $brand_item_arr = array();
     foreach( $indexData->branditem as $key => $item )
     {
-       // $brand_item_arr[$key] = get_brand_info($item);
+        // $brand_item_arr[$key] = get_brand_info($item);
         $flash_arr['brand'][] =get_brand_info($item);
 
     }
@@ -447,7 +446,7 @@ function get_goods_info_2($goods_id,$isMobile=false)
 
         }
 
-        $good_tmp['img'] = $row['goods_img_mobile'];
+        $good_tmp['img'] = $row['goods_thumb'];
         $good_tmp['id'] = $row['goods_id'];
         $good_tmp['type'] = 'goods';
         $good_tmp['name'] = $row['goods_name'];
