@@ -151,7 +151,7 @@ if (!empty($_REQUEST['keywords'])) {
 }
 
 $category = !empty($_REQUEST['category']) ? intval($_REQUEST['category']) : 0;
-$categories = ($category > 0) ? ' AND ' . get_children($category) : '';
+$categories = ($category > 0) ? ' AND (' . get_children($category)." or e_cat.cat_id = ".$category .")": '';
 // $brand      = $_REQUEST['brand']            ? " AND brand_id = '$_REQUEST[brand]'" : '';
 $brand = $_REQUEST['brand'] ? " AND brand_id = '" . $_REQUEST['brand'] . "'" : '';
 $outstock = !empty($_REQUEST['outstock']) ? " AND g.goods_number > 0 " : '';
@@ -278,6 +278,7 @@ if (!empty($_REQUEST['attr'])) {
 
 /* 获得符合条件的商品总数 */
 $sql = "SELECT COUNT(*) FROM " . $ecs->table('goods') . " AS g " .
+      " left join  ". $ecs->table('goods_cat')." as e_cat on g.goods_id = e_cat.goods_id ".
     "WHERE g.is_delete = 0 AND g.is_on_sale = 1 AND g.is_alone_sale = 1 $attr_in " .
     "AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock . " ) " . $tag_where . " )";
 
@@ -296,6 +297,7 @@ if ($page > $max_page) {
         "FROM " . $ecs->table('goods') . " AS g " .
         "LEFT JOIN " . $GLOBALS['ecs']->table('member_price') . " AS mp " .
         "ON mp.goods_id = g.goods_id AND mp.user_rank = '$_SESSION[user_rank]' " .
+        " LEFT JOIN  ". $ecs->table('goods_cat')." as e_cat on g.goods_id = e_cat.goods_id ".
         "WHERE g.is_delete = 0 AND g.is_on_sale = 1 AND g.is_alone_sale = 1 $attr_in " .
         "AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock . " ) " . $tag_where . " ) " .
         "ORDER BY $sort $order";
